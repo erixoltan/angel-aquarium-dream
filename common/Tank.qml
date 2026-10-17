@@ -96,16 +96,20 @@ Item {
         }
     }
 
+    // Ticks on the wall clock's beat, like a lone fish's clock (Angelfish.qml), so widgets on top
+    // of the tank with the same frame rate draw in the same frames.
     Timer {
         id: clock
         property double last: 0
-        interval: 1000 / Math.max(1, tank.fps)
+        readonly property real period: 1000 / Math.max(1, tank.fps)
+        interval: period
         running: tank.leading && tank.running && tank.visible && tank.width > 0
         repeat: true
         onRunningChanged: last = 0
         onTriggered: {
             var now = Date.now(), dt = last > 0 ? Math.min(0.2, (now - last) / 1000) : 0;
             last = now;
+            interval = Math.max(1, Math.round(period - now % period));
             water.time += dt * tank.waterSpeed;
             tank.placeNew();
             var all = tank.fishes();

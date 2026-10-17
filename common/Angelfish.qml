@@ -38,9 +38,10 @@ Item {
     property color foodColor: "#dca024"
     property bool animate: true
     property int fps: 20            // motion frame rate; each frame is a full redraw
-    // true: a host (Tank) calls advance(dt) on its own clock instead, and every moving part,
-    // blinks and easing included, steps on that clock. Several fish then share frames instead
-    // of each adding its own.
+    // Every moving part, blinks and colour easing included, steps on one clock, so a fish adds
+    // `fps` frames and no more. Its own clock ticks on the wall clock's beat (every 1000/fps ms,
+    // on the boundary), so fish in different widgets on one desktop land in the same frames.
+    // true: a host (Tank) calls advance(dt) on its clock instead, for fish that share a tank.
     property bool externalClock: false
     // true: a copy of a fish in another window (Mirror.qml), which sets its motion and eased
     // colours; advance(dt) then only moves its food and bubbles
@@ -104,7 +105,8 @@ Item {
         onTriggered: if (fish.easeStep()) stop()
     }
     property bool easing: false
-    function startEasing() { if (externalClock) easing = true; else easer.start(); }
+    // a still fish (animate false, e.g. the icon renderer) has no clock, so it eases on a timer
+    function startEasing() { if (externalClock || animate) easing = true; else easer.start(); }
     // One easing step; returns true once the shown values have caught up. Values move in steps
     // of 1/48: finer changes can't be seen, and each change repaints the fish's canvases (the
     // biggest cost of a fish, measured 2026-10-17), so easing stops as soon as it looks done.
@@ -183,7 +185,9 @@ Item {
     readonly property real lidRest: asleep ? 1 : 0.52 - 0.5 * Math.min(1, clamp(activity) * 1.4)
     property double lastTick: 0
     Timer {
-        interval: 1000 / Math.max(1, fish.fps)
+        id: clock
+        readonly property real period: 1000 / Math.max(1, fish.fps)
+        interval: period
         running: fish.animate && fish.visible && !fish.externalClock
         repeat: true
         onRunningChanged: fish.lastTick = 0
@@ -192,10 +196,12 @@ Item {
             var dt = fish.lastTick > 0 ? Math.min(0.2, (now - fish.lastTick) / 1000) : 0;
             fish.lastTick = now;
             fish.advance(dt);
+            // next tick on the beat (setting the interval restarts the timer)
+            interval = Math.max(1, Math.round(period - now % period));
         }
     }
-    // Move every animated part on by dt seconds. With externalClock, also blinks, the eyelid
-    // and the colour easing, which otherwise run on their own timers and animations.
+    // Move every animated part on by dt seconds: tail, bobbing, food and bubbles, blinks, the
+    // eyelid and the colour easing.
     property real nextBlink: 2.6 + Math.random() * 3
     property real blinkAge: -1
     property real easeDue: 0
@@ -205,7 +211,6 @@ Item {
         beat += dt * 2 * Math.PI * (0.35 + 2.4 * clamp(activity));
         drift += dt * 2 * Math.PI * 0.22;
         if (room > 0) flow.advance(dt);
-        if (!externalClock) return;
         // blink: shut over 70 ms, open over 130 ms
         nextBlink -= dt;
         if (nextBlink <= 0) {
@@ -231,19 +236,7 @@ Item {
             if (easeDue >= 0.2) { easeDue = 0; if (easeStep()) easing = false; }
         }
     }
-    Timer {
-        interval: 2600 + Math.random() * 3000
-        running: fish.animate && fish.visible && !fish.externalClock
-        repeat: true
-        onTriggered: if (!fish.asleep) blinkAnim.restart()
-    }
-    SequentialAnimation {
-        id: blinkAnim
-        NumberAnimation { target: fish; property: "blink"; to: 1; duration: 70 }
-        NumberAnimation { target: fish; property: "blink"; to: 0; duration: 130 }
-    }
-    Behavior on lidDrop { enabled: !fish.externalClock; NumberAnimation { duration: 500; easing.type: Easing.OutCubic } }
-    onLidRestChanged: if (!externalClock) lidDrop = lidRest
+    onLidRestChanged: if (!animate) lidDrop = lidRest        // a still fish has no clock
     Component.onCompleted: { lidDrop = lidRest; shownRings = ringLoads; }
 
     // The scene is the drawing plus the room in front of the mouth, scaled to fit the fish item.

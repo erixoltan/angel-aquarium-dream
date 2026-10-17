@@ -8,7 +8,7 @@
         "License": "GPL-2.0-or-later",
         "Name": "Memory Angelfish",
         "ServiceTypes": [ "Plasma/Applet" ],
-        "Version": "0.1.0",
+        "Version": "0.2.0",
         "Website": "https://github.com/erixoltan/angel-aquarium-dream"
     },
     "X-Plasma-API": "declarativeappletscript",

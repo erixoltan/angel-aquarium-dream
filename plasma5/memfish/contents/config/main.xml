@@ -14,7 +14,7 @@
     <entry name="hotTemp" type="Int"><default>70</default></entry>
     <entry name="limitTemp" type="Int"><default>85</default></entry>
     <!-- seconds between sensor readings; reading sensors costs CPU, so never below 1 -->
-    <entry name="refreshSeconds" type="Int"><default>1</default><min>1</min><max>60</max></entry>
+    <entry name="refreshSeconds" type="Int"><default>2</default><min>1</min><max>60</max></entry>
     <entry name="showBackground" type="Bool"><default>false</default></entry>
   </group>
 </kcfg>

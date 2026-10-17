@@ -20,9 +20,14 @@ Item {
     Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
     Plasmoid.toolTipSubText: gpu.name + (gpu.throttle ? "\n" + i18n("Slowing itself down: %1", gpu.throttle) : "")
 
+    // Under a maximised or full-screen window the desktop keeps drawing unseen (measured
+    // 2026-10-17: five widgets, 13% of a core and 17% of the GPU, all hidden), so the fish stops
+    // moving and readings slow to one every 10 s, as in the aquarium.
+    CoverWatch { id: cover }
+
     GpuReadings {
         id: gpu
-        interval: Math.max(1, root.cfg.refreshSeconds) * 1000
+        interval: (cover.covered ? 10 : Math.max(1, root.cfg.refreshSeconds)) * 1000
         device: root.cfg.device
         coolTemp: root.cfg.coolTemp
         hotTemp: root.cfg.hotTemp
@@ -40,6 +45,7 @@ Item {
 
         Angelfish {
             id: fish
+            animate: !cover.covered
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.preferredHeight: 0     // whatever the tag leaves

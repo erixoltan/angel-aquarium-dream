@@ -28,9 +28,14 @@ Item {
              : Math.round(b / 1e3) + " kbit/s";
     }
 
+    // Under a maximised or full-screen window the desktop keeps drawing unseen (measured
+    // 2026-10-17: five widgets, 13% of a core and 17% of the GPU, all hidden), so the fish stops
+    // moving and readings slow to one every 10 s, as in the aquarium.
+    CoverWatch { id: cover }
+
     NetworkReadings {
         id: net
-        interval: Math.max(1, root.cfg.refreshSeconds) * 1000
+        interval: (cover.covered ? 10 : Math.max(1, root.cfg.refreshSeconds)) * 1000
         device: root.cfg.device
         knownDown: root.cfg.maxDown
         knownUp: root.cfg.maxUp
@@ -65,6 +70,7 @@ Item {
         // collar shows how close the line is to its fastest; no temperature, so a neutral body
         Angelfish {
             id: fish
+            animate: !cover.covered
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.preferredHeight: 0     // whatever the tag leaves

@@ -20,6 +20,15 @@ ID_preview := com.erikzoltan.plasmabackground.preview
 ID_iconrender := com.erikzoltan.plasmabackground.iconrender
 ID_aquarium := com.erikzoltan.aquarium
 ID_tanktest := com.erikzoltan.plasmabackground.tanktest
+# A store package can't install an icon into the icon theme, and Plasma 5.27's Add Widgets takes
+# only a theme icon name or an absolute path (tested 2026-10-17: a path inside the package
+# doesn't work). So store packages name the nearest Breeze icon; the angelfish icons are on the
+# store pages, and `make install` installs them for builds from source.
+STOREICON_cpufish := cpu
+STOREICON_gpufish := video-display
+STOREICON_memfish := memory
+STOREICON_diskfish := drive-harddisk
+STOREICON_netfish := network-wired
 
 .PHONY: dist art icons assemble test test-gpu test-net test-mem test-disk test-tank preview install install-aquarium uninstall restart logs clean
 
@@ -113,9 +122,11 @@ logs:
 	journalctl --user -f -t plasmashell
 
 ## Packages for the KDE Store, in dist/: the aquarium wallpaper (.zip) and each widget
-## (.plasmoid; both are zips with metadata.json at the top). Each carries the licence.
+## (.plasmoid; both are zips with metadata.json at the top). Each carries the licence; a widget's
+## icon becomes its STOREICON (see above).
 dist: build/aquarium $(addprefix build/,$(filter-out preview,$(PLASMA5)))
 	rm -rf dist; mkdir -p dist
+	$(foreach w,$(filter-out preview,$(PLASMA5)),sed -i 's|"Icon": "$(ID_$(w))"|"Icon": "$(STOREICON_$(w))"|' build/$(w)/metadata.json;)
 	for p in aquarium $(filter-out preview,$(PLASMA5)); do \
 		cp LICENSE build/$$p/; \
 		n=$$(python3 -c "import json,sys; k=json.load(open(sys.argv[1]))['KPlugin']; print(k['Id'] + '-' + k['Version'])" build/$$p/metadata.json); \

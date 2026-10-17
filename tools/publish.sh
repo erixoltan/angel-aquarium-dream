@@ -1,7 +1,8 @@
 #!/bin/sh
 # Copies the project into the public repository's checkout (default ~/git/angel-aquarium-dream),
 # leaving out CLAUDE.md (notes about the development machine). Files removed here are removed
-# there too. Commit and push in that checkout afterwards.
+# there too. Commit and push in that checkout afterwards; git has no GitHub login of its own, so
+# push with gh's: git -c credential.helper= -c credential.helper='!gh auth git-credential' push
 set -e
 here=$(cd "$(dirname "$0")/.." && pwd)
 dest=${1:-$HOME/git/angel-aquarium-dream}

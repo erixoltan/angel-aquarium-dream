@@ -51,6 +51,22 @@ cream, so they're easy to tell from the hardware.
 The hardware angelfish keep their halos and wings for real trouble, so on a healthy computer
 they're rare; the characters show what the angelfish can do.
 
+## Desktop widgets
+
+Each hardware angelfish also comes on its own, as a desktop widget: CPU, GPU, Memory, Disk and
+Network Angelfish. Hover over one for its figures.
+
+![The five widgets under load: CPU and GPU red-hot, Memory calm, Disk eating and blowing bubbles, Network eating with a halo for a nearly full line](docs/widgets.png)
+
+Settings, per widget: which device (graphics card, drive or network connection), the
+temperatures for blue, red and a full halo (CPU, GPU, Memory; the Disk angelfish uses the
+drive's own limits), how often to read the sensors (default 2 s), the name tag, and a
+background. Like the aquarium, a widget stops moving while a maximised window covers it.
+
+In the store's packages a widget's icon in *Add Widgets* is a standard one (a chip, a monitor…):
+Plasma 5 can't take an icon from inside a package. Installed from source (`make install`), they
+get their angelfish icons.
+
 ## Requirements
 
 - KDE Plasma 5.27 (Qt 5.15). A Plasma 6 version is planned.
@@ -61,14 +77,14 @@ they're rare; the characters show what the angelfish can do.
 
 ## Install
 
-From the KDE Store: right-click the desktop, *Configure Desktop and Wallpaper…*, *Get New
-Plugins…*, and search for Angel Aquarium Dream. Widgets: *Add Widgets…*, *Get New Widgets…*.
+From the [KDE Store](https://store.kde.org/p/2379410): right-click the desktop, *Configure
+Desktop and Wallpaper…*, *Get New Plugins…*, and search for Angel Aquarium Dream. Widgets: *Add Widgets…*, *Get New Widgets…*.
 
 From a downloaded package:
 
 ```sh
-kpackagetool5 -t Plasma/Wallpaper -i com.erikzoltan.aquarium-0.2.0.zip
-kpackagetool5 -t Plasma/Applet -i com.erikzoltan.cpufish-0.1.0.plasmoid
+kpackagetool5 -t Plasma/Wallpaper -i com.erikzoltan.aquarium-0.2.1.zip
+kpackagetool5 -t Plasma/Applet -i com.erikzoltan.cpufish-0.2.0.plasmoid
 ```
 
 From source: `make install` installs the wallpaper and all the widgets, with their icons.

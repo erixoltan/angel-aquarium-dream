@@ -14,7 +14,8 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 //   intake     level × downShare (food), outflow = level × upShare (bubbles): a download sends
 //              acknowledgements back, but they are a few percent of the bytes, so few bubbles
 //   usage      linear share of the record in the busier direction: near 1 = the line is full
-//   connected  a default route, and the internet answers pings (3 misses in a row = broken);
+//   connected  a default route, and the internet answers pings (3 misses in a row = broken; a
+//              miss doesn't count while a download is arriving, which delays the pings);
 //              for one connection, the route must go through it and the pings are sent out
 //              through it. A connection that's down has no sensors at all (ksystemstats lists
 //              only connections that are up), so its rates read 0 and it simply isn't connected.
@@ -34,6 +35,11 @@ Item {
     property real knownDown: 0          // records stored by the host, B/s
     property real knownUp: 0
     property var probeHosts: ["1.1.1.1", "8.8.8.8"]
+    // B/s of download that proves the line works: a download that fills the line delays pings
+    // past their timeout, so misses don't count while this much arrives (2026-10-17: a speed test
+    // put the fish to sleep with wings, probably also the unexplained sleep seen that morning)
+    property real busyFlow: 100e3
+    property bool excused: false        // the last miss was excused by a download (logged once)
     property int probeSeconds: 15
     property real fullFrom: 0.8         // usage where the halo starts
     property real fullDistress: 0.6     // most distress a full line can cause (wings start at 0.65)
@@ -118,7 +124,13 @@ Item {
             if (at < 0) return;
             net.routed = out.slice(0, at).trim() !== "";
             var answered = net.routed && out.slice(at + 5).trim() === "0";
-            net.misses = answered ? 0 : net.misses + 1;
+            var busy = net.routed && net.downloadRate > net.busyFlow;
+            var excused = !answered && busy;
+            if (excused && !net.excused)
+                console.log("network fish: pings unanswered while downloading, still connected"
+                    + (net.device ? " (" + net.device + ")" : ""));
+            net.excused = excused;
+            net.misses = answered || busy ? 0 : net.misses + 1;
             net.checked = true;
             if (net.connected) net.everConnected = true;
         }

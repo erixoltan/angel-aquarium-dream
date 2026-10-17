@@ -22,9 +22,14 @@ Item {
     Plasmoid.toolTipSubText: i18n("%1% busy", Math.round(cpu.usage))
         + (cpu.temperature > 0 ? i18n(", hottest core %1 °C", Math.round(cpu.temperature)) : "")
 
+    // Under a maximised or full-screen window the desktop keeps drawing unseen (measured
+    // 2026-10-17: five widgets, 13% of a core and 17% of the GPU, all hidden), so the fish stops
+    // moving and readings slow to one every 10 s, as in the aquarium.
+    CoverWatch { id: cover }
+
     CpuReadings {
         id: cpu
-        interval: Math.max(1, root.cfg.refreshSeconds) * 1000
+        interval: (cover.covered ? 10 : Math.max(1, root.cfg.refreshSeconds)) * 1000
         coolTemp: root.cfg.coolTemp
         hotTemp: root.cfg.hotTemp
         limitTemp: root.cfg.limitTemp
@@ -41,6 +46,7 @@ Item {
 
         Angelfish {
             id: fish
+            animate: !cover.covered
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.preferredHeight: 0     // whatever the tag leaves
