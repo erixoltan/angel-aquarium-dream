@@ -2,13 +2,13 @@
     "KPlugin": {
         "Authors": [ { "Email": "oss@zoltan.org", "Name": "Erik Zoltan" } ],
         "Category": "",
-        "Description": "A dreamlike aquarium of angelfish in striped sweaters, one for each part of your computer: how each angelfish looks and swims shows how its part is doing, and trouble earns it a halo, then wings",
+        "Description": "A dreamlike aquarium of angelfish in striped sweaters, one for each part of your computer, joined by five dream characters with moods of their own: how each angelfish looks and swims shows how it is doing, and trouble earns it a halo, then wings",
         "Icon": "com.erikzoltan.cpufish",
         "Id": "com.erikzoltan.aquarium",
         "License": "GPL-2.0-or-later",
         "Name": "Angel Aquarium Dream",
         "ServiceTypes": [ "Plasma/Wallpaper" ],
-        "Version": "0.1.0",
+        "Version": "0.2.0",
         "Website": "https://github.com/erixoltan/angel-aquarium-dream"
     },
     "X-KDE-ParentApp": "org.kde.plasmashell",

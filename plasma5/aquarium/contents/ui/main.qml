@@ -4,7 +4,8 @@ import "Shared.js" as Shared
 
 // Plasma 5 wallpaper: the aquarium (Tank.qml) with up to eight fish, one per slot: CPU, Memory,
 // GPU 1-2, Disk 1-2, Network 1-2. Each slot's fish (CpuFish.qml …) brings its own readings and is
-// loaded only while the slot is switched on, so an unused slot costs nothing.
+// loaded only while the slot is switched on, so an unused slot costs nothing. Up to five dream
+// characters swim with them (MoodFish.qml: Dreamy, Anxious, Sleepy, Bling, Angry), likewise.
 Item {
     id: root
     // Read once and kept, as in the widget hosts.
@@ -73,6 +74,12 @@ Item {
     Component { id: disk2Fish; DiskFish { cfg: root.cfg; slot: "disk2"; interval: root.interval } }
     Component { id: network1Fish; NetworkFish { cfg: root.cfg; slot: "network1"; interval: root.interval } }
     Component { id: network2Fish; NetworkFish { cfg: root.cfg; slot: "network2"; interval: root.interval } }
+    // the dream characters: no readings, so their moods simply pause while the tank is covered
+    Component { id: dreamyFish; MoodFish { character: "dreamy"; caption: root.cfg.dreamyName || "Dreamy"; depth: 0.35; running: root.anyShown } }
+    Component { id: anxiousFish; MoodFish { character: "anxious"; caption: root.cfg.anxiousName || "Anxious"; depth: 0.55; running: root.anyShown } }
+    Component { id: sleepyFish; MoodFish { character: "sleepy"; caption: root.cfg.sleepyName || "Sleepy"; depth: 0.75; running: root.anyShown } }
+    Component { id: blingFish; MoodFish { character: "bling"; caption: root.cfg.blingName || "Bling"; depth: 0.2; running: root.anyShown } }
+    Component { id: angryFish; MoodFish { character: "angry"; caption: root.cfg.angryName || "Angry"; depth: 0.45; running: root.anyShown } }
 
     Tank {
         id: tank
@@ -101,6 +108,11 @@ Item {
         Loader { active: root.leading && root.cfg.disk2On; sourceComponent: disk2Fish; z: item ? item.z : 0 }
         Loader { active: root.leading && root.cfg.network1On; sourceComponent: network1Fish; z: item ? item.z : 0 }
         Loader { active: root.leading && root.cfg.network2On; sourceComponent: network2Fish; z: item ? item.z : 0 }
+        Loader { active: root.leading && root.cfg.dreamyOn; sourceComponent: dreamyFish; z: item ? item.z : 0 }
+        Loader { active: root.leading && root.cfg.anxiousOn; sourceComponent: anxiousFish; z: item ? item.z : 0 }
+        Loader { active: root.leading && root.cfg.sleepyOn; sourceComponent: sleepyFish; z: item ? item.z : 0 }
+        Loader { active: root.leading && root.cfg.blingOn; sourceComponent: blingFish; z: item ? item.z : 0 }
+        Loader { active: root.leading && root.cfg.angryOn; sourceComponent: angryFish; z: item ? item.z : 0 }
         // on the other screens
         Repeater {
             model: root.sources

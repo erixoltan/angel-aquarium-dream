@@ -6,14 +6,16 @@ else. How an angelfish looks and swims says how its part is doing: a busy CPU sw
 full sweater, a hot one turns red, a drive being written to eats, a network that's down falls
 asleep on the sand, and real trouble earns a halo, then wings.
 
+Five dream characters swim with them, angelfish that stand for moods rather than hardware:
+Dreamy, Anxious, Sleepy, Bling and Angry.
+
 It's meant to be funny as well as glanceable. It isn't a performance graph: precise numbers
-belong in other tools (hover over a desktop widget for its figures). Dreamlike characters that
-stand for moods rather than hardware are planned.
+belong in other tools (hover over a desktop widget for its figures).
 
 The same angelfish also come as five desktop widgets: CPU, GPU, Memory, Disk and Network
 Angelfish.
 
-![Five angelfish in the aquarium: CPU, GPU, Memory with a halo and wings, Disk eating, and Ethernet asleep near the sand](docs/aquarium.png)
+![The aquarium with ten angelfish: CPU, GPU, Memory, Disk and Ethernet in navy, green, purple, orange and teal sweaters; Disk and Ethernet eating; Anxious overheated red with a halo and wings; Sleepy asleep on the sand with a halo and wings; Dreamy, Bling and Angry swimming](docs/aquarium.png)
 
 ## Reading an angelfish
 
@@ -32,6 +34,23 @@ Every angelfish follows the same rules, so learning one teaches all of them.
 | Halo, then wings | Harm to the hardware or to responsiveness: too hot for too long, a card slowing itself down, programs waiting for memory, a connection that was lost. It builds slowly and fades more slowly still |
 | Name tag | What the angelfish is, in words |
 
+## The dream characters
+
+They stand for nothing on the computer. Each has a temperament that comes and goes on its own,
+acted out in the same visual language as the others. Their sweaters are pale colours instead of
+cream, so they're easy to tell from the hardware.
+
+| Name | Sweater | What it does |
+|---|---|---|
+| Dreamy | pink on mint | drifts slowly, half asleep, trailing a few bubbles; dozes off now and then |
+| Anxious | grey on pink | every minute or two a worry builds: it fidgets and works itself up until it overheats and grows a halo, and sometimes wings |
+| Sleepy | brown on blue | sleeps on the sand for minutes at a time, dreaming of being an angel: a halo, then wings, until it wakes |
+| Bling | rainbow on grey | cruises, then shows off in bursts of flat-out swimming |
+| Angry | crimson on yellow | simmers, then flares up: flushes red, swims hard, fumes bubbles, and grows a halo at the height of it, sometimes wings |
+
+The hardware angelfish keep their halos and wings for real trouble, so on a healthy computer
+they're rare; the characters show what the angelfish can do.
+
 ## Requirements
 
 - KDE Plasma 5.27 (Qt 5.15). A Plasma 6 version is planned.
@@ -48,7 +67,7 @@ Plugins…*, and search for Angel Aquarium Dream. Widgets: *Add Widgets…*, *Ge
 From a downloaded package:
 
 ```sh
-kpackagetool5 -t Plasma/Wallpaper -i com.erikzoltan.aquarium-0.1.0.zip
+kpackagetool5 -t Plasma/Wallpaper -i com.erikzoltan.aquarium-0.2.0.zip
 kpackagetool5 -t Plasma/Applet -i com.erikzoltan.cpufish-0.1.0.plasmoid
 ```
 
@@ -61,17 +80,17 @@ A newly installed wallpaper sometimes shows only after Plasma restarts
 
 ## Settings
 
-The aquarium has eight angelfish slots: CPU, Memory, GPU 1-2, Disk 1-2 and Network 1-2. Each
+The aquarium has eight hardware slots: CPU, Memory, GPU 1-2, Disk 1-2 and Network 1-2. Each
 can be switched on or off, pointed at a device (graphics card, drive, network connection) and
-renamed. Temperatures use each part's own limits, so there's nothing to set. The other settings
-are about cost:
+renamed. Temperatures use each part's own limits, so there's nothing to set. Each of the five
+dream characters can be switched on or off and renamed too. The other settings are about cost:
 
 - **Sensor interval** (default 4 s). Readings are about half the cost.
 - **Frame rate** (default 20 fps). Each frame redraws the whole screen.
 - **Water speed.**
 
-With five angelfish at the defaults, the aquarium takes about 10% of one CPU core and a few
-percent of the GPU. It stops while a maximised or full-screen window covers it. With an NVIDIA
+With five hardware angelfish at the defaults, the aquarium takes about 10% of one CPU core and
+a few percent of the GPU; the dream characters add about 1% of a core each. It stops while a maximised or full-screen window covers it. With an NVIDIA
 card, the settings page shows how much of the GPU the desktop is using, and the GPU angelfish's
 tag can show it too, so the wallpaper's own load isn't mistaken for work.
 

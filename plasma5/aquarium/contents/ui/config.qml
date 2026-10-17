@@ -37,6 +37,16 @@ Kirigami.FormLayout {
     property alias cfg_network2Name: network2Row.name
     property alias cfg_network2Device: network2Row.device
     property alias cfg_showDesktopGpu: showDesktopGpu.checked
+    property alias cfg_dreamyOn: dreamyRow.on
+    property alias cfg_dreamyName: dreamyRow.name
+    property alias cfg_anxiousOn: anxiousRow.on
+    property alias cfg_anxiousName: anxiousRow.name
+    property alias cfg_sleepyOn: sleepyRow.on
+    property alias cfg_sleepyName: sleepyRow.name
+    property alias cfg_blingOn: blingRow.on
+    property alias cfg_blingName: blingRow.name
+    property alias cfg_angryOn: angryRow.on
+    property alias cfg_angryName: angryRow.name
 
     GpuList { id: gpus }
     DiskList { id: disks }
@@ -94,6 +104,22 @@ Kirigami.FormLayout {
         font: Kirigami.Theme.smallFont
         opacity: 0.7
     }
+
+    Item { Kirigami.FormData.isSection: true }
+
+    // ---- dream characters ----
+    QQC2.Label {
+        Kirigami.FormData.label: "Dream angelfish:"
+        text: "Angelfish that stand for nothing on the computer, each with a temperament\n"
+            + "of its own that comes and goes. Each costs about 1% of a CPU core, for its swimming."
+        font: Kirigami.Theme.smallFont
+        opacity: 0.7
+    }
+    SlotRow { id: dreamyRow; Kirigami.FormData.label: "Dreamy:"; defaultName: "Dreamy" }
+    SlotRow { id: anxiousRow; Kirigami.FormData.label: "Anxious:"; defaultName: "Anxious" }
+    SlotRow { id: sleepyRow; Kirigami.FormData.label: "Sleepy:"; defaultName: "Sleepy" }
+    SlotRow { id: blingRow; Kirigami.FormData.label: "Bling:"; defaultName: "Bling" }
+    SlotRow { id: angryRow; Kirigami.FormData.label: "Angry:"; defaultName: "Angry" }
 
     Item { Kirigami.FormData.isSection: true }
 

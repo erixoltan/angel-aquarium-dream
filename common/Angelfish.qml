@@ -22,7 +22,7 @@ import "Palettes.js" as Palettes
 Item {
     id: fish
 
-    property string kind: "cpu"         // cpu, gpu, memory, disk, network (see Palettes.js)
+    property string kind: "cpu"         // cpu, gpu, memory, disk, network, or a mood (Palettes.js)
     property var stripes: []            // per unit, each 0..1; empty = the bands are a gauge of `fill`
     property real fill: average(stripes)    // overall fullness, 0..1
     property real secondaryFill: -1     // collar gauge 0..1; -1 = follow `fill`
@@ -45,9 +45,12 @@ Item {
     // true: a copy of a fish in another window (Mirror.qml), which sets its motion and eased
     // colours; advance(dt) then only moves its food and bubbles
     property bool mirrored: false
+    // true while a host draws the fish flipped (facing right): text, the snoring z's, is flipped
+    // back so it doesn't read mirrored
+    property bool drawnFlipped: false
 
     readonly property var palette: Palettes.of(kind)
-    property color sweaterColor: "#f6f1e4"          // the sweater's base, shown on idle bands
+    property color sweaterColor: palette.base || "#f6f1e4"  // the sweater's base, on idle bands: cream, or a character's own
     property color stripeColor: palette.stripe      // busy bands
     property color inkColor: palette.ink            // outlines of body and tail
 
@@ -150,8 +153,10 @@ Item {
         for (var i = 0; i < shownRings.length; i++) sum += shownRings[i];
         return split < 0 ? 0 : sum * shownSplit;
     }
+    // a band's own colour: the stripe colour, or the palette's colour for that band (Bling's)
     function bandColor(ring) {
-        return mix(stripeColor, foodColor, clamp(splitRings - ring));
+        var bands = palette.bands, own = bands ? bands[ring % bands.length] : stripeColor;
+        return mix(own, foodColor, clamp(splitRings - ring));
     }
     function regionColor(region) {
         switch (region.role) {
@@ -476,6 +481,7 @@ Item {
                 Text {
                     visible: bubble.snore
                     anchors.centerIn: parent
+                    transform: Scale { origin.x: width / 2; xScale: fish.drawnFlipped ? -1 : 1 }
                     text: "z"
                     font.pixelSize: bubble.size * 2
                     font.bold: true

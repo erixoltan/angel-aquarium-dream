@@ -157,6 +157,7 @@ Item {
             anchors.fill: parent
             kind: swimmer.kind
             externalClock: true          // the tank's clock drives it (step)
+            drawnFlipped: swimmer.flip < 0
         }
     }
     Caption {

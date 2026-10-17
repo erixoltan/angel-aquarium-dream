@@ -14,7 +14,7 @@ Rectangle {
     // Each component's sweater stripes and matching dark outlines (common/Palettes.js); the
     // outlines can be switched to black for comparison.
     function inkFor(kind) { return inkMode.currentIndex === 1 ? "black" : Palettes.of(kind).ink; }
-    readonly property string kind: Palettes.kinds[paletteBox.currentIndex]
+    readonly property string kind: Palettes.kinds.concat(Palettes.moods)[paletteBox.currentIndex]
 
     property var loads: []
     property int tick: 0
@@ -136,7 +136,7 @@ Rectangle {
             CheckBox { id: hop; text: "Work hops between cores"; checked: true
                        contentItem: Label { text: hop.text; color: "#cfe3ea"; leftPadding: hop.indicator.width + 6; verticalAlignment: Text.AlignVCenter } }
             Label { text: "Sweater"; color: "#cfe3ea"; Layout.topMargin: 8 }
-            ComboBox { id: paletteBox; Layout.fillWidth: true; model: Palettes.kinds.map(function (k) { return Palettes.of(k).name; }) }
+            ComboBox { id: paletteBox; Layout.fillWidth: true; model: Palettes.kinds.concat(Palettes.moods).map(function (k) { return Palettes.of(k).name; }) }
             Label { text: "Stripes"; color: "#cfe3ea" }
             ComboBox { id: gaugeMode; Layout.fillWidth: true; model: ["One per thread (CPU)", "Gauge of the average (GPU…)"] }
             Label { text: "Outlines"; color: "#cfe3ea" }
