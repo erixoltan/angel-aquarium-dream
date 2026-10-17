@@ -1,0 +1,16 @@
+{
+    "KPlugin": {
+        "Authors": [ { "Email": "oss@zoltan.org", "Name": "Erik Zoltan" } ],
+        "Category": "System Information",
+        "Description": "Your graphics card as an angelfish in a green-striped sweater: the stripes fill as it works, the collar as its memory fills, red when hot, and a halo when it's in trouble",
+        "Icon": "com.erikzoltan.gpufish",
+        "Id": "com.erikzoltan.gpufish",
+        "License": "GPL-2.0-or-later",
+        "Name": "GPU Angelfish",
+        "ServiceTypes": [ "Plasma/Applet" ],
+        "Version": "0.1.0",
+        "Website": "https://github.com/erixoltan/angel-aquarium-dream"
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-MainScript": "ui/main.qml"
+}

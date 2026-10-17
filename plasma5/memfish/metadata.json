@@ -1,0 +1,16 @@
+{
+    "KPlugin": {
+        "Authors": [ { "Email": "oss@zoltan.org", "Name": "Erik Zoltan" } ],
+        "Category": "System Information",
+        "Description": "Your memory as an angelfish in a purple-striped sweater: the stripes fill as programs take memory, the collar as swap fills, red when the memory sticks run hot, and a halo, then wings, when programs have to wait for memory",
+        "Icon": "com.erikzoltan.memfish",
+        "Id": "com.erikzoltan.memfish",
+        "License": "GPL-2.0-or-later",
+        "Name": "Memory Angelfish",
+        "ServiceTypes": [ "Plasma/Applet" ],
+        "Version": "0.1.0",
+        "Website": "https://github.com/erixoltan/angel-aquarium-dream"
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-MainScript": "ui/main.qml"
+}

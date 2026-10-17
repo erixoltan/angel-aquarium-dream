@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name=""/>
+  <group name="General">
+    <!-- name tag under the fish; empty caption = the component's name -->
+    <entry name="showCaption" type="Bool"><default>true</default></entry>
+    <entry name="caption" type="String"><default></default></entry>
+    <!-- busiest core nearest the head, whichever core it is -->
+    <entry name="sortStripes" type="Bool"><default>true</default></entry>
+    <!-- hottest core, °C: fully blue at coolTemp, fully red at hotTemp; the halo builds above
+         hotTemp and is full at limitTemp -->
+    <entry name="coolTemp" type="Int"><default>35</default></entry>
+    <entry name="hotTemp" type="Int"><default>85</default></entry>
+    <entry name="limitTemp" type="Int"><default>100</default></entry>
+    <!-- seconds between sensor readings; reading sensors costs CPU, so never below 1 -->
+    <entry name="refreshSeconds" type="Int"><default>1</default><min>1</min><max>60</max></entry>
+    <entry name="showBackground" type="Bool"><default>false</default></entry>
+  </group>
+</kcfg>

@@ -1,0 +1,16 @@
+{
+    "KPlugin": {
+        "Authors": [ { "Email": "oss@zoltan.org", "Name": "Erik Zoltan" } ],
+        "Category": "System Information",
+        "Description": "Your network as an angelfish in a teal-striped sweater: it eats what you download and blows bubbles as you upload, and dozes off when you're offline",
+        "Icon": "com.erikzoltan.netfish",
+        "Id": "com.erikzoltan.netfish",
+        "License": "GPL-2.0-or-later",
+        "Name": "Network Angelfish",
+        "ServiceTypes": [ "Plasma/Applet" ],
+        "Version": "0.1.0",
+        "Website": "https://github.com/erixoltan/angel-aquarium-dream"
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-MainScript": "ui/main.qml"
+}

@@ -1,0 +1,14 @@
+import QtQuick 2.15
+import QtQuick.Layouts 1.15
+import org.kde.plasma.plasmoid 2.0
+
+// Plasma 5 host for the development preview: just shows dev/Preview.qml.
+Item {
+    Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
+    Plasmoid.fullRepresentation: Preview {
+        Layout.preferredWidth: implicitWidth
+        Layout.preferredHeight: implicitHeight
+        Layout.minimumWidth: 1100
+        Layout.minimumHeight: 720
+    }
+}

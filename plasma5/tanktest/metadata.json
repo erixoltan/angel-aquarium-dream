@@ -1,0 +1,16 @@
+{
+    "KPlugin": {
+        "Authors": [ { "Email": "oss@zoltan.org", "Name": "Erik Zoltan" } ],
+        "Category": "System Information",
+        "Description": "Development only: the Angelfish aquarium in a window, with real readings",
+        "Icon": "applications-graphics",
+        "Id": "com.erikzoltan.plasmabackground.tanktest",
+        "License": "GPL-2.0-or-later",
+        "Name": "Angelfish Tank (test)",
+        "ServiceTypes": [ "Plasma/Applet" ],
+        "Version": "0.1.0",
+        "Website": ""
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-MainScript": "ui/main.qml"
+}

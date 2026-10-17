@@ -1,0 +1,16 @@
+{
+    "KPlugin": {
+        "Authors": [ { "Email": "oss@zoltan.org", "Name": "Erik Zoltan" } ],
+        "Category": "System Information",
+        "Description": "Your drive as an angelfish in an orange-striped sweater: it eats what you write and blows bubbles as you read, the collar fills with the drive, red when hot, and a halo when it's nearly full",
+        "Icon": "com.erikzoltan.diskfish",
+        "Id": "com.erikzoltan.diskfish",
+        "License": "GPL-2.0-or-later",
+        "Name": "Disk Angelfish",
+        "ServiceTypes": [ "Plasma/Applet" ],
+        "Version": "0.1.0",
+        "Website": "https://github.com/erixoltan/angel-aquarium-dream"
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-MainScript": "ui/main.qml"
+}

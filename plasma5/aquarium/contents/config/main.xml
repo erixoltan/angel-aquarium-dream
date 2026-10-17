@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0 http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile name=""/>
+  <group name="General">
+    <!-- seconds between sensor readings, shared by every fish; never below 1. Readings are about
+         half the wallpaper's CPU cost (2 s: ~15% of a core with five fish, 4 s: ~9%) -->
+    <entry name="refreshSeconds" type="Int"><default>4</default><min>1</min><max>60</max></entry>
+    <!-- frames per second for the whole tank (the main cost), and how fast the water's light
+         moves, in percent -->
+    <entry name="fps" type="Int"><default>20</default><min>5</min><max>60</max></entry>
+    <entry name="waterSpeed" type="Int"><default>40</default><min>0</min><max>200</max></entry>
+    <!-- a line under each GPU fish's tag: how much of the GPU the desktop itself takes -->
+    <entry name="showDesktopGpu" type="Bool"><default>true</default></entry>
+
+    <!-- Eight fixed slots. <slot>On: shown; <slot>Name: the name tag (empty = the kind's name);
+         <slot>Device: which GPU ("gpu2"), drive (a volume id) or connection (empty = the first
+         GPU / all drives / all traffic); Max*: lifetime speed records in B/s (0 = none yet) -->
+    <entry name="cpuOn" type="Bool"><default>true</default></entry>
+    <entry name="cpuName" type="String"><default></default></entry>
+    <entry name="memoryOn" type="Bool"><default>true</default></entry>
+    <entry name="memoryName" type="String"><default></default></entry>
+    <entry name="gpu1On" type="Bool"><default>true</default></entry>
+    <entry name="gpu1Name" type="String"><default></default></entry>
+    <entry name="gpu1Device" type="String"><default></default></entry>
+    <entry name="gpu2On" type="Bool"><default>false</default></entry>
+    <entry name="gpu2Name" type="String"><default></default></entry>
+    <entry name="gpu2Device" type="String"><default></default></entry>
+    <entry name="disk1On" type="Bool"><default>true</default></entry>
+    <entry name="disk1Name" type="String"><default></default></entry>
+    <entry name="disk1Device" type="String"><default></default></entry>
+    <entry name="disk1MaxRead" type="Double"><default>0</default></entry>
+    <entry name="disk1MaxWrite" type="Double"><default>0</default></entry>
+    <entry name="disk2On" type="Bool"><default>false</default></entry>
+    <entry name="disk2Name" type="String"><default></default></entry>
+    <entry name="disk2Device" type="String"><default></default></entry>
+    <entry name="disk2MaxRead" type="Double"><default>0</default></entry>
+    <entry name="disk2MaxWrite" type="Double"><default>0</default></entry>
+    <entry name="network1On" type="Bool"><default>true</default></entry>
+    <entry name="network1Name" type="String"><default></default></entry>
+    <entry name="network1Device" type="String"><default></default></entry>
+    <entry name="network1MaxDown" type="Double"><default>0</default></entry>
+    <entry name="network1MaxUp" type="Double"><default>0</default></entry>
+    <entry name="network2On" type="Bool"><default>false</default></entry>
+    <entry name="network2Name" type="String"><default></default></entry>
+    <entry name="network2Device" type="String"><default></default></entry>
+    <entry name="network2MaxDown" type="Double"><default>0</default></entry>
+    <entry name="network2MaxUp" type="Double"><default>0</default></entry>
+  </group>
+</kcfg>

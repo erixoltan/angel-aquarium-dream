@@ -1,0 +1,15 @@
+{
+    "KPlugin": {
+        "Authors": [ { "Name": "Erik Zoltan" } ],
+        "Category": "System Information",
+        "Description": "Development preview of the plasma_background characters",
+        "Icon": "preferences-desktop-wallpaper",
+        "Id": "com.erikzoltan.plasmabackground.preview",
+        "License": "GPL-2.0-or-later",
+        "Name": "Plasma Background Preview",
+        "ServiceTypes": [ "Plasma/Applet" ],
+        "Version": "0.1.0"
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-MainScript": "ui/main.qml"
+}
