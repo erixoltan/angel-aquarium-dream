@@ -36,7 +36,7 @@ Item {
         engine: "executable"
         readonly property string command: "sh -c 'nvidia-smi pmon -c 1 -s u; "
             + "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits'"
-        onNewData: {
+        onNewData: function (sourceName, data) {
             disconnectSource(sourceName);
             if (Number(data["exit code"]) !== 0) return;
             var shell = 0, comp = 0, total = -1, seen = false, sampled = false;

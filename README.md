@@ -69,7 +69,8 @@ get their angelfish icons.
 
 ## Requirements
 
-- KDE Plasma 5.27 (Qt 5.15). A Plasma 6 version is planned.
+- KDE Plasma 6 (the aquarium) or Plasma 5.27 (the aquarium and the widgets). The widgets
+  haven't been ported to Plasma 6 yet.
 - Plasma's system monitor service, `ksystemstats` (installed with Plasma).
 - Optional: `nvidia-smi` for NVIDIA cards (correct video-memory figures, why a card slows itself
   down, and the desktop's own share of the GPU); `ping` for the network angelfish's connection
@@ -77,18 +78,31 @@ get their angelfish icons.
 
 ## Install
 
-From the [KDE Store](https://store.kde.org/p/2379410): right-click the desktop, *Configure
-Desktop and Wallpaper…*, *Get New Plugins…*, and search for Angel Aquarium Dream. Widgets: *Add Widgets…*, *Get New Widgets…*.
+From the KDE Store: right-click the desktop, *Configure Desktop and Wallpaper…*, *Get New
+Plugins…*, and search for Angel Aquarium Dream. Plasma 6 and Plasma 5 each have their own
+store page ([Plasma 5](https://store.kde.org/p/2379410)). Widgets (Plasma 5): *Add Widgets…*,
+*Get New Widgets…*.
 
-From a downloaded package:
+From a downloaded package, on Plasma 6:
+
+```sh
+kpackagetool6 -t Plasma/Wallpaper -i com.erikzoltan.aquarium-0.2.1-plasma6.zip
+```
+
+On Plasma 5:
 
 ```sh
 kpackagetool5 -t Plasma/Wallpaper -i com.erikzoltan.aquarium-0.2.1.zip
 kpackagetool5 -t Plasma/Applet -i com.erikzoltan.cpufish-0.2.0.plasmoid
 ```
 
-From source: `make install` installs the wallpaper and all the widgets, with their icons.
-`make dist` builds the store packages into `dist/`.
+If a Plasma 5 copy of the aquarium is still installed after upgrading to Plasma 6, remove it
+first (`rm -r ~/.local/share/plasma/wallpapers/com.erikzoltan.aquarium`): kpackagetool6 can't
+replace it.
+
+From source: on Plasma 6, `make install-aquarium6` (it needs `qsb`, from Qt's shader tools,
+package qt6-shader-baker on Ubuntu); on Plasma 5, `make install` installs the wallpaper and all
+the widgets, with their icons. `make dist6` and `make dist` build the store packages.
 
 Then pick *Angel Aquarium Dream* as the wallpaper type under *Configure Desktop and Wallpaper*.
 A newly installed wallpaper sometimes shows only after Plasma restarts

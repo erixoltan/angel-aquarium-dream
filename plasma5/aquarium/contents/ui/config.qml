@@ -9,6 +9,9 @@ Kirigami.FormLayout {
     id: page
     twinFormLayouts: parentLayout
     property alias formLayout: page
+    // Plasma 6 hands every wallpaper page these and logs an error where they're missing; unused here
+    property var configDialog
+    property var wallpaperConfiguration
 
     property alias cfg_refreshSeconds: interval.value
     property alias cfg_fps: fps.value

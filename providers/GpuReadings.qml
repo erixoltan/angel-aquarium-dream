@@ -84,7 +84,7 @@ Item {
             + "clocks_throttle_reasons.sw_thermal_slowdown,clocks_throttle_reasons.hw_thermal_slowdown,"
             + "clocks_throttle_reasons.hw_slowdown,clocks_throttle_reasons.hw_power_brake_slowdown"
             + " --format=csv,noheader,nounits"
-        onNewData: {
+        onNewData: function (sourceName, data) {
             disconnectSource(sourceName);
             var k = 0, lines = String(data.stdout || "").split("\n");
             for (var i = 0; i < lines.length; i++) {

@@ -23,7 +23,7 @@ QtObject {
         readonly property string command: "sh -c 'for d in /sys/class/net/*; do n=${d##*/}; "
             + "t=wired; [ -d \"$d/wireless\" ] && t=wifi; echo \"$n $t\"; done'"
         Component.onCompleted: connectSource(command)
-        onNewData: {
+        onNewData: function (sourceName, data) {
             disconnectSource(sourceName);
             var ids = [], kinds = [];
             var lines = String(data.stdout || "").split("\n");

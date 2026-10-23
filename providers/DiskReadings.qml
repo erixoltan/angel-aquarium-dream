@@ -85,7 +85,7 @@ Item {
             + "for h in $b/device/hwmon* $b/device/hwmon/hwmon*; do [ -f $h/temp1_input ] && "
             + "echo temp $(cat $h/temp1_input) $(cat $h/temp1_max || echo 0) $(cat $h/temp1_crit || echo 0); "
             + "done; done 2>/dev/null"
-        onNewData: {
+        onNewData: function (sourceName, data) {
             disconnectSource(sourceName);
             var lines = String(data.stdout || "").split("\n"), found = false, heat = 0, hot = 0, shown = 0;
             for (var i = 0; i < lines.length; i++) {

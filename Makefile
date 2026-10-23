@@ -30,7 +30,7 @@ STOREICON_memfish := memory
 STOREICON_diskfish := drive-harddisk
 STOREICON_netfish := network-wired
 
-.PHONY: dist art icons assemble test test-gpu test-net test-mem test-disk test-tank preview install install-aquarium uninstall restart logs clean
+.PHONY: dist dist6 art icons assemble test test-gpu test-net test-mem test-disk test-tank preview install install-aquarium uninstall restart logs install-aquarium6 test-tank6 clean
 
 ## Rebuild the character art (common/images, common/AngelfishArt.js) from art/src
 art:
@@ -58,6 +58,37 @@ build/%: FORCE
 FORCE:
 # the assembled packages are what gets installed; keep them
 .PRECIOUS: build/%
+
+# Plasma 6 packages are assembled into build6/<name>/ the same way: plasma5/<name>/ with
+# plasma6/<name>/ on top (only what differs: metadata.json, main.qml's root), and plasma6/shared/
+# over common/ and providers/ (Water.qml with its shader baked by qsb, CoverWatch.qml). The
+# providers' DataSource moved to Plasma5Support in Plasma 6, with the same API, so only the import
+# changes. The shader is baked in Qt 6.5's format (QSB 8): this machine's qsb (Qt 6.10) writes
+# QSB 9 by default, which older Qt 6 can't be counted on to read, and Plasma 6.0 runs on Qt 6.6.
+PLASMA6 := aquarium tanktest
+QSB := /usr/lib/qt6/bin/qsb
+PROVIDERS := $(notdir $(wildcard providers/*.qml))
+build6/%: FORCE
+	rm -rf $@
+	mkdir -p $@
+	cp -r plasma5/$*/. $@/
+	cp -r plasma6/$*/. $@/
+	cp common/*.qml common/*.js providers/*.qml $@/contents/ui/
+	cp plasma6/shared/*.qml $@/contents/ui/
+	cp -r common/images $@/contents/ui/
+	cd $@/contents/ui && sed -i 's/^import org.kde.plasma.core 2.0 as PlasmaCore$$/import org.kde.plasma.plasma5support 2.0 as PlasmaCore/' $(PROVIDERS)
+	$(QSB) --glsl "100 es,120,150" --hlsl 50 --msl 12 --qsbversion 65 -o $@/contents/ui/water.frag.qsb plasma6/shared/water.frag
+.PRECIOUS: build6/%
+
+## Plasma 6: install the aquarium wallpaper (pick "Angel Aquarium Dream" under Configure Desktop
+## and Wallpaper; make restart after updating)
+install-aquarium6: build6/aquarium
+	kpackagetool6 -t Plasma/Wallpaper -u build6/aquarium 2>/dev/null || kpackagetool6 -t Plasma/Wallpaper -i build6/aquarium
+
+## Plasma 6: the aquarium's scene in a window, real readings
+test-tank6: build6/tanktest
+	kpackagetool6 -t Plasma/Applet -u build6/tanktest 2>/dev/null || kpackagetool6 -t Plasma/Applet -i build6/tanktest
+	plasmawindowed $(ID_tanktest)
 
 # A widget's Add Widgets icon is art/icons/<widget>.png, installed into the user's icon theme
 # under the widget's id (its metadata.json "Icon").
@@ -135,5 +166,14 @@ dist: build/aquarium $(addprefix build/,$(filter-out preview,$(PLASMA5)))
 	done
 	ls -l dist
 
+## Plasma 6 store package, in dist6/: the aquarium wallpaper (.zip). Its Id is the Plasma 5
+## one's, so the file name says plasma6.
+dist6: build6/aquarium
+	rm -rf dist6; mkdir -p dist6
+	cp LICENSE build6/aquarium/
+	n=$$(python3 -c "import json,sys; k=json.load(open(sys.argv[1]))['KPlugin']; print(k['Id'] + '-' + k['Version'])" build6/aquarium/metadata.json); \
+	(cd build6/aquarium && zip -qr -X ../../dist6/$$n-plasma6.zip .)
+	ls -l dist6
+
 clean:
-	rm -rf build dist
+	rm -rf build build6 dist dist6

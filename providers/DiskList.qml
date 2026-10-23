@@ -20,7 +20,7 @@ QtObject {
         engine: "executable"
         readonly property string command: "kstatsviewer --list"
         Component.onCompleted: connectSource(command)
-        onNewData: {
+        onNewData: function (sourceName, data) {
             disconnectSource(sourceName);
             var ids = [], names = [], devices = [];
             var lines = String(data.stdout || "").split("\n");

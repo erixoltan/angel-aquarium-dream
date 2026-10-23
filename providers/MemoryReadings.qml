@@ -66,7 +66,7 @@ Item {
         readonly property string command: "for h in /sys/class/hwmon/hwmon*; do case $(cat $h/name) in "
             + "spd5118|jc42) echo dimm $(cat $h/temp1_input);; esac; done 2>/dev/null; "
             + "cat /proc/pressure/memory 2>/dev/null"
-        onNewData: {
+        onNewData: function (sourceName, data) {
             disconnectSource(sourceName);
             var lines = String(data.stdout || "").split("\n"), hottest = -1, some = -1, full = -1;
             for (var i = 0; i < lines.length; i++) {

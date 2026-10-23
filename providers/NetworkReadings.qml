@@ -118,7 +118,7 @@ Item {
             return "ip route show default" + via + " 2>/dev/null; ip -6 route show default" + via
                 + " 2>/dev/null; " + pings.join(" || ") + "; echo ping=$?";
         }
-        onNewData: {
+        onNewData: function (sourceName, data) {
             disconnectSource(sourceName);
             var out = String(data.stdout || ""), at = out.lastIndexOf("ping=");
             if (at < 0) return;
