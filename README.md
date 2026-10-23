@@ -80,7 +80,7 @@ get their angelfish icons.
 
 From the KDE Store: right-click the desktop, *Configure Desktop and Wallpaper…*, *Get New
 Plugins…*, and search for Angel Aquarium Dream. Plasma 6 and Plasma 5 each have their own
-store page ([Plasma 5](https://store.kde.org/p/2379410)). Widgets (Plasma 5): *Add Widgets…*,
+store page ([Plasma 6](https://store.kde.org/p/2380179), [Plasma 5](https://store.kde.org/p/2379410)). Widgets (Plasma 5): *Add Widgets…*,
 *Get New Widgets…*.
 
 From a downloaded package, on Plasma 6:
